@@ -1,3 +1,8 @@
+/**
+ * Reveal-on-scroll behaviour used by the Home page.
+ * Adds a class only after the element enters the viewport, and respects
+ * reduced-motion and browsers without IntersectionObserver.
+ */
 import { useEffect } from "react";
 
 /**
@@ -14,6 +19,8 @@ function useScrollReveal() {
       typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Fall back to showing everything immediately when animation is unwanted
+    // or the API is unavailable.
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
       elements.forEach((element) => element.classList.add("is-visible"));
       return undefined;
@@ -22,6 +29,7 @@ function useScrollReveal() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          // Reveal once, then stop observing to keep scrolling cheap.
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);

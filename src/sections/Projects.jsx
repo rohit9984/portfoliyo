@@ -1,13 +1,20 @@
+/**
+ * Projects section.
+ * Reads project content from data/projects.js, supports URL-synced category
+ * filters and links each card to its generated case-study route.
+ */
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import { projectFilters, projects } from "../data/projects";
 import site from "../data/site";
 
 function Project() {
+  // `filter` is read from the query string so filtered views are shareable.
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
   const requestedFilter = searchParams.get("filter");
+  // Ignore unknown filter values and fall back to "all".
   const activeFilter = projectFilters.some(
     (filter) => filter.id === requestedFilter
   )
@@ -19,6 +26,8 @@ function Project() {
       ? projects
       : projects.filter((project) => project.category === activeFilter);
 
+  // Update only the query string while preserving the current path and hash.
+  // This prevents filter clicks from scrolling back to the top of the page.
   const selectFilter = (id) => {
     const params = new URLSearchParams();
     if (id !== "all") {
@@ -53,6 +62,7 @@ function Project() {
           role="group"
           aria-label="Filter projects by category"
         >
+          {/* aria-pressed communicates the active filter to assistive tech. */}
           {projectFilters.map((filter) => (
             <button
               key={filter.id}
@@ -69,6 +79,7 @@ function Project() {
         </div>
 
         <div className="projects-grid">
+          {/* Cards fall back to an icon placeholder when no screenshot exists. */}
           {visibleProjects.map((project) => (
             <article className="project-card" key={project.id} data-reveal>
               <Link
@@ -109,6 +120,7 @@ function Project() {
                 </ul>
 
                 <div className="project-links">
+                  {/* Internal case study + external live demo. */}
                   <Link to={`/projects/${project.slug}`} className="text-link">
                     Case study
                     <i className="ri-arrow-right-line" aria-hidden="true"></i>

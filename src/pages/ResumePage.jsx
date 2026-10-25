@@ -1,3 +1,8 @@
+/**
+ * Printable resume route (`/resume`).
+ * Content is assembled from the same data files used by the Home page, so the
+ * resume cannot drift out of sync with the portfolio.
+ */
 import { Link } from "react-router-dom";
 
 import useDocumentTitle from "../hooks/useDocumentTitle";
@@ -17,6 +22,7 @@ function ResumePage() {
             <i className="ri-arrow-left-line" aria-hidden="true"></i> Back home
           </Link>
           <div className="resume-actions">
+            {/* Browser print uses the dedicated @media print rules in App.css. */}
             <button
               type="button"
               className="btn btn-outline"
@@ -79,6 +85,7 @@ function ResumePage() {
 
           <section className="resume-block">
             <h2>Skills</h2>
+            {/* Skill groups are shared with the Skills section. */}
             <div className="resume-skills">
               {skillGroups.map((group) => (
                 <div key={group.title}>
@@ -91,6 +98,7 @@ function ResumePage() {
 
           <section className="resume-block">
             <h2>Projects</h2>
+            {/* Every project in projects.js is listed with its stack and summary. */}
             <div className="resume-projects">
               {projects.map((project) => (
                 <div key={project.id}>
@@ -106,6 +114,7 @@ function ResumePage() {
 
           <section className="resume-block">
             <h2>Education</h2>
+            {/* Newest qualification first, matching the Home timeline. */}
             <div className="resume-education">
               {education.map((item) => (
                 <div key={item.degree}>

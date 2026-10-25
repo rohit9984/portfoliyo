@@ -1,6 +1,11 @@
+/**
+ * Site footer.
+ * Shows the current year automatically and reuses shared contact/social data.
+ */
 import site from "../data/site";
 
 function Footer() {
+  // Computed on render, so the copyright stays correct without manual edits.
   const year = new Date().getFullYear();
 
   return (
@@ -14,6 +19,8 @@ function Footer() {
             </div>
           </div>
 
+          {/* Primary in-page navigation. It works from any route because the
+              browser returns to the home page before jumping to the hash. */}
           <nav className="footer-nav" aria-label="Footer">
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
@@ -21,6 +28,7 @@ function Footer() {
             <a href="#contact">Contact</a>
           </nav>
 
+          {/* External profiles and a direct email shortcut. */}
           <div className="social-links">
             <a
               href={site.github}

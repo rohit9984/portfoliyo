@@ -1,3 +1,7 @@
+/**
+ * Education timeline, newest qualification first.
+ * `board` is optional and only rendered when present.
+ */
 export const education = [
   {
     degree: "Bachelor of Computer Applications (BCA)",

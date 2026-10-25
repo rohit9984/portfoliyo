@@ -1,9 +1,16 @@
+/**
+ * Main site navigation.
+ * Handles the mobile overlay (focus trap, scroll lock, outside click), active
+ * section highlighting on the home page, theme switching and command palette
+ * access. Links use hashes so they work from project and resume routes too.
+ */
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import site from "../data/site";
 import useTheme from "../hooks/useTheme";
 
+// `to` is the full route; `hash` is the section id used by the scroll spy.
 const navLinks = [
   { to: "/#about", hash: "about", label: "About" },
   { to: "/#skills", hash: "skills", label: "Skills" },
@@ -15,6 +22,7 @@ const navLinks = [
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  // refs let us detect outside clicks and keep focus inside the mobile menu.
   const headerRef = useRef(null);
   const navRef = useRef(null);
   const { theme, toggleTheme } = useTheme();
@@ -24,6 +32,7 @@ function Navbar() {
   const closeMenu = () => setIsMenuOpen(false);
 
   const openPalette = () => {
+    // Loose coupling: CommandPalette listens for this custom event.
     window.dispatchEvent(new Event("open-command-palette"));
   };
 
@@ -105,6 +114,7 @@ function Navbar() {
 
   /* Highlight the nav link for the section currently in view. */
   useEffect(() => {
+    // The scroll spy only applies to the single-page Home route.
     if (!isHome) {
       setActiveSection("");
       return undefined;
@@ -128,6 +138,7 @@ function Navbar() {
     };
 
     const handleScroll = () => {
+      // requestAnimationFrame coalesces bursts of scroll events into one update.
       if (!frame) frame = window.requestAnimationFrame(updateActiveSection);
     };
 
@@ -160,6 +171,7 @@ function Navbar() {
           className={`nav-menu ${isMenuOpen ? "open" : ""}`}
           aria-label="Primary"
         >
+          {/* Hash links let visitors jump back to Home sections from any page. */}
           {navLinks.map((link) => (
             <Link
               key={link.to}
@@ -181,6 +193,7 @@ function Navbar() {
         </nav>
 
         <div className="nav-actions">
+          {/* Theme toggle. The icon reflects the action, not the current theme. */}
           <button
             type="button"
             className="icon-btn"

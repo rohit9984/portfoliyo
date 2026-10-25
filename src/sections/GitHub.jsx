@@ -1,3 +1,9 @@
+/**
+ * Live GitHub repository feed.
+ * Fetches four recently updated, non-forked repositories from the public API.
+ * Results are cached in sessionStorage for ten minutes and the request aborts
+ * after eight seconds so a slow/offline GitHub never blocks the page.
+ */
 import { useEffect, useState } from "react";
 
 import site from "../data/site";
@@ -5,6 +11,7 @@ import site from "../data/site";
 const CACHE_KEY = "rohit-portfolio-github-repos";
 const CACHE_TTL = 10 * 60 * 1000;
 
+// Return cached repositories only while they are still fresh.
 function readCache() {
   try {
     const raw = window.sessionStorage.getItem(CACHE_KEY);
@@ -22,8 +29,10 @@ function GitHub() {
   const [status, setStatus] = useState("loading");
 
   useEffect(() => {
+    // Prevent state updates if the component unmounts mid-request.
     let cancelled = false;
 
+    // Fast path: use fresh sessionStorage data and skip the network.
     const cached = readCache();
     if (cached) {
       setRepos(cached);
@@ -37,6 +46,7 @@ function GitHub() {
     }
 
     const controller = new AbortController();
+    // Abort slow requests; the UI then shows the manual GitHub fallback.
     const timeout = window.setTimeout(() => controller.abort(), 8000);
 
     fetch(
@@ -51,6 +61,7 @@ function GitHub() {
         if (cancelled) return;
         window.clearTimeout(timeout);
         const list = data
+          // Hide forks and keep the feed compact (four cards).
           .filter((repo) => !repo.fork)
           .slice(0, 4)
           .map((repo) => ({
@@ -65,6 +76,7 @@ function GitHub() {
         setRepos(list);
         setStatus("ready");
         try {
+          // Caching keeps the unauthenticated API well under its rate limit.
           window.sessionStorage.setItem(
             CACHE_KEY,
             JSON.stringify({ time: Date.now(), repos: list })
@@ -79,12 +91,14 @@ function GitHub() {
       });
 
     return () => {
+      // Cancel in-flight work when the section is removed.
       cancelled = true;
       window.clearTimeout(timeout);
       controller.abort();
     };
   }, []);
 
+  // Format API timestamps as e.g. "Oct 2026".
   const formatDate = (value) =>
     new Intl.DateTimeFormat("en-GB", {
       month: "short",
@@ -104,6 +118,7 @@ function GitHub() {
         </div>
 
         {status === "loading" && (
+          // Skeleton cards keep the layout stable while the request runs.
           <div className="github-grid" aria-live="polite">
             {[0, 1, 2].map((index) => (
               <div className="repo-card skeleton" key={index}>
@@ -157,6 +172,7 @@ function GitHub() {
         )}
 
         {status === "error" && (
+          // Graceful fallback instead of an empty section.
           <p className="github-fallback">
             GitHub is taking a moment to respond. You can still browse all my
             repositories on{" "}

@@ -1,5 +1,11 @@
+/**
+ * Hero / above-the-fold section.
+ * Introduces Rohit, shows availability, primary actions, core technologies and
+ * the portrait. The portrait is preloaded in public/index.html.
+ */
 import site from "../data/site";
 
+// Short list shown under the hero buttons.
 const techStack = [
   "React.js",
   "JavaScript",
@@ -13,6 +19,7 @@ function Hero() {
   return (
     <section id="home" className="hero-section">
       <div className="container hero-grid">
+        {/* Left column: headline, description and primary actions. */}
         <div className="hero-content" data-reveal>
           <span className="badge-status">
             <span className="status-dot"></span>
@@ -48,6 +55,7 @@ function Hero() {
         </div>
 
         <div className="hero-image-wrap" data-reveal>
+          {/* Decorative blob; the portrait card sits above it. */}
           <div className="hero-blob" aria-hidden="true"></div>
           <div className="image-card">
             <img

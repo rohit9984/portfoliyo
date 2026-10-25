@@ -1,3 +1,18 @@
+/*
+ * ============================================================================
+ * Portfolio styles
+ * ----------------------------------------------------------------------------
+ * 1. Design tokens + light/dark theme variables
+ * 2. Base reset, typography, accessibility and layout helpers
+ * 3. Component/section styles (header, hero, cards, pages, overlays)
+ * 4. Responsive breakpoints (1024px, 900px, 640px, 420px)
+ * 5. Reduced-motion and print rules
+ *
+ * All colours should use the variables below so both themes stay consistent.
+ * ============================================================================
+ */
+
+/* 1. Light theme tokens (default). */
 :root {
   --primary: #448c74;
   --primary-hover: #35705d;
@@ -23,6 +38,7 @@
   --input-bg: #fbfdfc;
 }
 
+/* Dark theme overrides. Applied through <html data-theme="dark">. */
 [data-theme="dark"] {
   --primary: #7cc9ae;
   --primary-hover: #96d8c1;
@@ -42,6 +58,7 @@
   --shadow-hover: 0 18px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* 2. Base reset: consistent sizing and no accidental page overflow. */
 * {
   margin: 0;
   padding: 0;
@@ -81,10 +98,12 @@ a {
   border-radius: 4px;
 }
 
+/* Anchor targets stop below the sticky header instead of underneath it. */
 section[id] {
   scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
+/* Keyboard-only skip link, hidden until it receives focus. */
 .skip-link {
   position: fixed;
   top: -100px;
@@ -103,6 +122,7 @@ section[id] {
   top: 12px;
 }
 
+/* Shared page-width wrapper used by every section. */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -1451,7 +1471,13 @@ a.info-item:hover,
   background: var(--primary-hover);
 }
 
-/* Responsive */
+/* 4. Responsive rules
+   --------------------------------------------------------------------------
+   1024px — switch to the mobile navigation
+    900px — collapse two-column grids into one column
+    640px — compact spacing, full-width buttons, single-column forms
+    420px — small-phone typography and filter sizing
+*/
 @media (max-width: 1024px) {
   .menu-toggle {
     display: inline-flex;
@@ -1657,6 +1683,7 @@ a.info-item:hover,
   }
 }
 
+/* Honour the operating system's reduced-motion preference. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -2454,6 +2481,7 @@ body {
   outline-offset: 2px;
 }
 
+/* Print view used by the Resume page: remove chrome and force black on white. */
 @media print {
   .header,
   .footer,

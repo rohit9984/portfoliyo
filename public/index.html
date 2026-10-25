@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Primary SEO metadata. React updates the <title> per route after load. -->
     <title>Rohit Kumar Maurya | Full Stack Web Developer</title>
     <meta
       name="description"
@@ -15,6 +16,7 @@
     />
     <meta name="author" content="Rohit Kumar Maurya" />
     <meta name="theme-color" content="#448C74" />
+    <!-- Apply the saved theme before React renders to avoid a colour flash. -->
     <script>
       (function () {
         try {
@@ -33,6 +35,7 @@
       })();
     </script>
 
+    <!-- Open Graph / Twitter cards used when the link is shared. -->
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
@@ -52,6 +55,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="%PUBLIC_URL%/Images/og-image.jpg" />
 
+    <!-- Icons and PWA manifest. %PUBLIC_URL% is replaced by CRA at build time. -->
     <link rel="icon" type="image/png" href="%PUBLIC_URL%/Images/favicon.png" />
     <link
       rel="apple-touch-icon"
@@ -59,6 +63,7 @@
     />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
+    <!-- Hero portrait is the largest above-the-fold asset, so preload it. -->
     <link
       rel="preload"
       as="image"
@@ -66,12 +71,14 @@
       fetchpriority="high"
     />
 
+    <!-- Remix Icon webfont used by every icon class (ri-*). -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
     />
 
+    <!-- Structured data helps search engines understand the Person entity. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

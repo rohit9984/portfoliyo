@@ -1,3 +1,7 @@
+/**
+ * 404 fallback for unknown routes.
+ * Also rendered by ProjectDetail when a project slug does not exist.
+ */
 import { Link } from "react-router-dom";
 
 import useDocumentTitle from "../hooks/useDocumentTitle";

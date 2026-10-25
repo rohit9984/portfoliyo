@@ -1,3 +1,7 @@
+/**
+ * Skill groups shown in the Skills section and on the resume.
+ * `icon` values are Remix Icon class names loaded from the CDN.
+ */
 export const skillGroups = [
   {
     title: "Frontend",

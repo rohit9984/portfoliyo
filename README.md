@@ -9,6 +9,9 @@ Education · Contact
 
 **Extra pages:** Project case studies (`/projects/:slug`), Resume (`/resume`)
 
+For a detailed walkthrough of the folders, routes, data flow, styling system and
+common edit tasks, see [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md).
+
 ## Features
 
 - Responsive layout tested from 380px to 1440px

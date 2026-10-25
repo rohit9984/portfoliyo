@@ -1,3 +1,7 @@
+/**
+ * Optional Create React App performance reporting.
+ * No callback is passed in index.js, so this is a no-op unless enabled.
+ */
 const reportWebVitals = onPerfEntry => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {

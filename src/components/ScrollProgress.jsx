@@ -1,3 +1,7 @@
+/**
+ * Thin progress bar fixed to the top of the viewport.
+ * The width is driven by the scroll position and updated through rAF.
+ */
 import { useEffect, useState } from "react";
 
 function ScrollProgress() {
@@ -6,6 +10,7 @@ function ScrollProgress() {
   useEffect(() => {
     let frame = 0;
 
+    // Convert scroll position into a 0–1 value used by CSS scaleX().
     const update = () => {
       frame = 0;
       const scrollable =

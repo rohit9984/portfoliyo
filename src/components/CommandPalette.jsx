@@ -1,3 +1,8 @@
+/**
+ * Keyboard quick-navigation palette (Ctrl/Cmd + K).
+ * Actions are generated from data, so new projects appear automatically.
+ * Supports search, arrow-key navigation, Enter to open and Escape to close.
+ */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -11,10 +16,12 @@ function CommandPalette() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // The navbar can open the palette through a custom browser event.
     const open = () => setIsOpen(true);
     const close = () => setIsOpen(false);
 
     const handleKey = (event) => {
+      // Ctrl/Cmd + K toggles the palette from anywhere on the site.
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
         setIsOpen((value) => !value);
@@ -32,12 +39,14 @@ function CommandPalette() {
   }, []);
 
   useEffect(() => {
+    // Reset search and selection every time the palette closes.
     if (!isOpen) {
       setQuery("");
       setActiveIndex(0);
     }
   }, [isOpen]);
 
+  // Each item either navigates inside the SPA (`to`) or leaves the site (`href`).
   const actions = [
     { group: "Sections", label: "Home", to: "/" },
     { group: "Sections", label: "About", to: "/#about" },
@@ -58,6 +67,7 @@ function CommandPalette() {
     { group: "Elsewhere", label: "Send an email", href: `mailto:${site.email}` },
   ];
 
+  // Case-insensitive search across both the label and its group.
   const filtered = query
     ? actions.filter((action) =>
         `${action.label} ${action.group}`
@@ -69,6 +79,7 @@ function CommandPalette() {
   const runAction = (action) => {
     if (!action) return;
     setIsOpen(false);
+    // External links use a normal browser navigation; internal routes use React Router.
     if (action.href) {
       window.location.href = action.href;
       return;
@@ -77,6 +88,7 @@ function CommandPalette() {
   };
 
   const handleInputKeyDown = (event) => {
+    // Arrow keys wrap around the filtered list; Enter runs the highlighted item.
     if (event.key === "ArrowDown") {
       event.preventDefault();
       setActiveIndex((index) => (index + 1) % filtered.length);

@@ -1,3 +1,14 @@
+/**
+ * Project catalogue.
+ *
+ * Each entry powers three places: the Projects cards, the generated case-study
+ * page at /projects/<slug>, the resume project list and the command palette.
+ *
+ * Required: id, slug, title, tagline, description, overview, year, role,
+ * category, categoryLabel, tech[], highlights[], link.
+ * Optional: image (use null for a placeholder), icon, repo.
+ * `category` must match an id in projectFilters below.
+ */
 export const projects = [
   {
     id: "chatgpt-clone",
@@ -91,11 +102,13 @@ export const projects = [
   },
 ];
 
+// Categories used by the URL filter and the filter buttons.
 export const projectFilters = [
   { id: "all", label: "All" },
   { id: "web", label: "Web Apps" },
   { id: "frontend", label: "Frontend" },
 ];
 
+// Lookup helper for the dynamic /projects/:slug route.
 export const getProjectBySlug = (slug) =>
   projects.find((project) => project.slug === slug);

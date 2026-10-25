@@ -1,3 +1,7 @@
+/**
+ * Education timeline.
+ * Entries come from data/education.js and render in the order provided.
+ */
 import { education } from "../data/education";
 
 function Education() {
@@ -10,6 +14,7 @@ function Education() {
         </div>
 
         <div className="timeline">
+          {/* Each entry includes an icon, year, qualification and score. */}
           {education.map((item) => (
             <article className="timeline-item" key={item.degree} data-reveal>
               <div className="timeline-icon" aria-hidden="true">

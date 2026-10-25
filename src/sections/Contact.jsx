@@ -1,8 +1,16 @@
+/**
+ * Contact section.
+ * Provides direct contact details plus an AJAX FormSubmit form with
+ * idle → sending → success/error states. A clipboard fallback supports older
+ * browsers, and hidden fields configure the FormSubmit delivery.
+ */
 import { useState } from "react";
 import site from "../data/site";
 
+// wa.me requires a digits-only number; remove spaces, + and punctuation.
 const whatsappNumber = site.phoneHref.replace(/[^0-9]/g, "");
 
+// Contact rows shown beside the form. `copy` enables the email copy button.
 const contactItems = [
   {
     icon: "ri-mail-line",
@@ -34,11 +42,13 @@ const contactItems = [
 ];
 
 function Contact() {
+  // `status` drives the form button and feedback message; `copied` is temporary.
   const [status, setStatus] = useState("idle");
   const [copied, setCopied] = useState(false);
 
   const copyEmail = async () => {
     try {
+      // Clipboard API first; fall back to a temporary input for older browsers.
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(site.email);
       } else {
@@ -50,6 +60,7 @@ function Contact() {
         field.remove();
       }
       setCopied(true);
+      // Reset the confirmation icon after a short pause.
       window.setTimeout(() => setCopied(false), 2200);
     } catch {
       setCopied(false);
@@ -62,6 +73,7 @@ function Contact() {
     setStatus("sending");
 
     try {
+      // Convert all named form fields into a JSON payload for FormSubmit.
       const payload = Object.fromEntries(new FormData(form).entries());
       const response = await fetch(`https://formsubmit.co/ajax/${site.email}`, {
         method: "POST",
@@ -74,6 +86,7 @@ function Contact() {
 
       if (!response.ok) throw new Error("Submission failed");
 
+      // FormSubmit sometimes returns HTTP 200 with success: false.
       const result = await response.json().catch(() => ({}));
       if (result.success === "false" || result.success === false) {
         throw new Error("Submission rejected");
@@ -99,6 +112,7 @@ function Contact() {
         </div>
 
         <div className="contact-grid">
+          {/* Contact details, social links and copy-email control. */}
           <div className="contact-info" data-reveal>
             {contactItems.map((item) => (
               <div className="info-item" key={item.label}>
@@ -169,6 +183,7 @@ function Contact() {
             onSubmit={handleSubmit}
             data-reveal
           >
+            {/* Hidden FormSubmit configuration: subject, captcha and honeypot. */}
             <input
               type="hidden"
               name="_subject"

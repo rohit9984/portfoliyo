@@ -1,3 +1,7 @@
+/**
+ * Smoke test for the app shell.
+ * Confirms the Home hero and at least one contact email link render.
+ */
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 

@@ -1,3 +1,8 @@
+/**
+ * Project case-study page.
+ * The slug comes from the URL, is looked up in the central project data, and
+ * falls back to the 404 page when no match exists.
+ */
 import { Link, useParams } from "react-router-dom";
 
 import useDocumentTitle from "../hooks/useDocumentTitle";
@@ -6,8 +11,10 @@ import NotFound from "./NotFound";
 
 function ProjectDetail() {
   const { slug } = useParams();
+  // `project` is undefined for an invalid or removed slug.
   const project = getProjectBySlug(slug);
 
+  // Set a page-specific browser title before deciding whether to show 404.
   useDocumentTitle(
     project
       ? `${project.title} | Rohit Kumar Maurya`
@@ -18,11 +25,13 @@ function ProjectDetail() {
     return <NotFound />;
   }
 
+  // Every other project is offered as a "next" link at the bottom.
   const otherProjects = projects.filter((item) => item.id !== project.id);
 
   return (
     <section className="section case-section">
       <div className="container case-container">
+        {/* Always provide a way back to the filtered project list. */}
         <Link to="/#projects" className="back-link">
           <i className="ri-arrow-left-line" aria-hidden="true"></i> Back to
           projects
@@ -52,6 +61,7 @@ function ProjectDetail() {
         </header>
 
         <div className="case-media" data-reveal>
+          {/* Projects without a screenshot use the shared placeholder design. */}
           {project.image ? (
             <img
               src={project.image}
@@ -84,6 +94,7 @@ function ProjectDetail() {
           </div>
 
           <aside className="case-sidebar" data-reveal>
+            {/* Quick facts are all optional data fields from projects.js. */}
             <div className="case-meta">
               <div>
                 <span className="fact-label">Year</span>
@@ -119,6 +130,7 @@ function ProjectDetail() {
             </a>
 
             {project.repo && (
+              // The source link is only rendered when a repo URL exists.
               <a
                 href={project.repo}
                 className="text-link muted"
@@ -133,6 +145,7 @@ function ProjectDetail() {
         </div>
 
         <div className="case-next">
+          {/* Cross-links keep visitors exploring instead of leaving the site. */}
           <span className="fact-label">More projects</span>
           <div className="case-next-links">
             {otherProjects.map((item) => (

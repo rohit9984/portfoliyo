@@ -1,5 +1,11 @@
+/**
+ * About section.
+ * Combines a short introduction with quick facts and a "currently" strip.
+ * Personal values come from site.js so contact details stay in one place.
+ */
 import site from "../data/site";
 
+// Static quick-facts card. `highlight` styles the availability value.
 const facts = [
   {
     icon: "ri-user-3-line",
@@ -29,6 +35,7 @@ const facts = [
   },
 ];
 
+// “Now” strip: what Rohit is building, learning and open to.
 const currentFocus = [
   {
     icon: "ri-code-box-line",
@@ -52,6 +59,7 @@ function About() {
     <section id="about" className="section about-section">
       <div className="container">
         <div className="about-grid">
+          {/* Left: long-form introduction and calls to action. */}
           <div className="about-copy" data-reveal>
             <span className="section-subtitle">ABOUT ME</span>
             <h2 className="section-title">Full stack developer, learner, problem solver.</h2>
@@ -110,6 +118,7 @@ function About() {
         </div>
 
         <div className="now-strip" data-reveal>
+          {/* Each item is a small icon + label/value pair. */}
           {currentFocus.map((item) => (
             <div className="now-item" key={item.label}>
               <span className="fact-icon" aria-hidden="true">

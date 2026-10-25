@@ -1,3 +1,7 @@
+/**
+ * Skills section.
+ * Groups are shared with the resume route via data/skills.js.
+ */
 import { skillGroups } from "../data/skills";
 
 function Skills() {
@@ -14,6 +18,7 @@ function Skills() {
         </div>
 
         <div className="skills-grid">
+          {/* One card per group, rendered from the shared skill data. */}
           {skillGroups.map((group) => (
             <div className="skill-card" key={group.title} data-reveal>
               <div className="skill-icon" aria-hidden="true">

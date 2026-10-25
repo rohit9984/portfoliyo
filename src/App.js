@@ -1,3 +1,8 @@
+/**
+ * App shell.
+ * ThemeProvider and BrowserRouter sit above every page. Shared UI (navbar,
+ * footer, scroll helpers, command palette) is rendered once around the routes.
+ */
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.css";
@@ -16,14 +21,17 @@ import ResumePage from "./pages/ResumePage";
 
 function App() {
   return (
+    // ThemeProvider exposes light/dark state; BrowserRouter manages URL routes.
     <ThemeProvider>
       <BrowserRouter
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
       >
         <div className="App">
+          {/* Global scroll indicators and hash/deep-link scroll handling. */}
           <ScrollProgress />
           <ScrollToTop />
 
+          {/* Keyboard users can bypass the navigation and jump to <main>. */}
           <a href="#main-content" className="skip-link">
             Skip to content
           </a>
@@ -31,6 +39,7 @@ function App() {
           <Navbar />
 
           <main id="main-content">
+            {/* Every page-level view is declared here. */}
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/projects/:slug" element={<ProjectDetail />} />
@@ -39,6 +48,7 @@ function App() {
             </Routes>
           </main>
 
+          {/* Floating helpers remain available on every route. */}
           <Footer />
           <BackToTop />
           <WhatsAppFab />

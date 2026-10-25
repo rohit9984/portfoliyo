@@ -1,3 +1,8 @@
+/**
+ * Services section.
+ * Content is local to this file because it is presentation copy rather than
+ * reusable personal data.
+ */
 const services = [
   {
     icon: "ri-stack-line",
@@ -39,6 +44,7 @@ function Service() {
         </div>
 
         <div className="services-grid">
+          {/* Each card is icon + title + short description. */}
           {services.map((service) => (
             <div className="service-card" key={service.title} data-reveal>
               <div className="service-icon" aria-hidden="true">
