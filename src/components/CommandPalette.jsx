@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { projects } from "../data/projects";
+import { showCredentials } from "../data/credentials";
 import site from "../data/site";
 
 function CommandPalette() {
@@ -54,6 +55,15 @@ function CommandPalette() {
     { group: "Sections", label: "Services", to: "/#services" },
     { group: "Sections", label: "Projects", to: "/#projects" },
     { group: "Sections", label: "GitHub", to: "/#github" },
+    ...(showCredentials
+      ? [
+          {
+            group: "Sections",
+            label: "Achievements & Certifications",
+            to: "/#credentials",
+          },
+        ]
+      : []),
     { group: "Sections", label: "Education", to: "/#education" },
     { group: "Sections", label: "Contact", to: "/#contact" },
     { group: "Pages", label: "Resume", to: "/resume" },

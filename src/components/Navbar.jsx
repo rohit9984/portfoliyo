@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import site from "../data/site";
+import { showCredentials } from "../data/credentials";
 import useTheme from "../hooks/useTheme";
 
 // `to` is the full route; `hash` is the section id used by the scroll spy.
@@ -16,6 +17,10 @@ const navLinks = [
   { to: "/#skills", hash: "skills", label: "Skills" },
   { to: "/#services", hash: "services", label: "Services" },
   { to: "/#projects", hash: "projects", label: "Works" },
+  // Only show the credentials link once real entries have been added.
+  ...(showCredentials
+    ? [{ to: "/#credentials", hash: "credentials", label: "Credentials" }]
+    : []),
   { to: "/#contact", hash: "contact", label: "Contact" },
 ];
 

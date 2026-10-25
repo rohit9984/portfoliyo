@@ -6,6 +6,7 @@
 import { Link } from "react-router-dom";
 
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import { achievements, certifications } from "../data/credentials";
 import { education } from "../data/education";
 import { projects } from "../data/projects";
 import { skillGroups } from "../data/skills";
@@ -111,6 +112,43 @@ function ResumePage() {
               ))}
             </div>
           </section>
+
+          {certifications.length > 0 && (
+            <section className="resume-block">
+              <h2>Certifications</h2>
+              <div className="resume-certifications">
+                {certifications.map((item) => (
+                  <div key={`${item.title}-${item.issuer}`}>
+                    <div className="resume-project-head">
+                      <h3>{item.title}</h3>
+                      {item.date && <span>{item.date}</span>}
+                    </div>
+                    <p>
+                      {item.issuer}
+                      {item.credentialId ? ` — ID ${item.credentialId}` : ""}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {achievements.length > 0 && (
+            <section className="resume-block">
+              <h2>Achievements</h2>
+              <div className="resume-achievements">
+                {achievements.map((item) => (
+                  <div key={`${item.title}-${item.year}`}>
+                    <div className="resume-project-head">
+                      <h3>{item.title}</h3>
+                      {item.year && <span>{item.year}</span>}
+                    </div>
+                    {item.description && <p>{item.description}</p>}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           <section className="resume-block">
             <h2>Education</h2>

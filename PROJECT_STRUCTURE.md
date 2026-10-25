@@ -59,7 +59,7 @@ my-portfoliyo/
 │   ├── assets/fonts/          Self-hosted Poppins woff2 files
 │   ├── components/            Reusable app-shell components
 │   ├── context/               Theme context/provider
-│   ├── data/                  Editable site content
+│   ├── data/                  Editable site content (site, projects, skills, credentials, education)
 │   ├── hooks/                 Small reusable React hooks
 │   ├── pages/                 Route-level views
 │   ├── sections/              Home-page content sections
@@ -145,8 +145,9 @@ Composes the home experience in this order:
 5. `Service`
 6. `Projects`
 7. `GitHub`
-8. `Education`
-9. `Contact`
+8. `Credentials`
+9. `Education`
+10. `Contact`
 
 It also runs `useScrollReveal()` once and sets the home-page document title.
 
@@ -180,6 +181,7 @@ Shared 404 view with links back home and to the projects section.
 | `sections/Service.jsx` | Service cards (copy local to the component) |
 | `sections/Projects.jsx` | Filterable project grid and case-study links |
 | `sections/GitHub.jsx` | Live GitHub repositories with cache/fallback |
+| `sections/Credentials.jsx` | Achievements and certifications from `data/credentials.js` |
 | `sections/Education.jsx` | Education timeline from `data/education.js` |
 | `sections/Contact.jsx` | Contact details, copy email, WhatsApp, FormSubmit form |
 
@@ -234,6 +236,36 @@ Exports `education`, an array of:
   degree, institute, location, year, score,
   board?, // optional
   icon
+}
+```
+
+### `credentials.js`
+
+Exports `certifications`, `achievements`, `hasCredentials` and
+`showCredentials`. The Credentials section and the resume read these arrays.
+While both are empty, the section is hidden in production; in development it
+shows a helper card explaining where to add entries, and the navbar link is
+kept visible for local testing.
+
+Certification shape:
+
+```js
+{
+  title, issuer, date,
+  credentialId?, // optional verification id
+  url?,          // optional verification link
+  skills: [],
+  icon?          // optional Remix Icon class
+}
+```
+
+Achievement shape:
+
+```js
+{
+  title, year, description,
+  link?, // optional proof/demo link
+  icon?  // optional Remix Icon class
 }
 ```
 
@@ -388,6 +420,18 @@ Add an object to `projects` in `src/data/projects.js`, put an optimised image in
 
 Edit `src/data/skills.js` or `src/data/education.js`.
 
+### Add an achievement or certification
+
+Edit `src/data/credentials.js`. Add a certification object to `certifications`
+or an achievement object to `achievements`. As soon as either array has an
+entry:
+
+- the Credentials section appears on the home page
+- a Credentials link is added to the navbar and command palette
+- the item is included on the resume page
+
+Only publish real credentials, and include a verification URL where available.
+
 ### Change colours or spacing
 
 Edit the tokens at the top of `src/App.css`. Update both light and dark themes.
@@ -442,6 +486,10 @@ src/data/experience.js
 src/sections/Certifications.jsx
 src/sections/Experience.jsx
 ```
+
+The active credentials implementation is `src/sections/Credentials.jsx` with
+data in `src/data/credentials.js`; the old zero-byte `Certifications.jsx` is
+not used.
 
 They can be deleted safely. They are left in place only to avoid unrelated
 cleanup while the portfolio is being published. The active implementation is

@@ -7,6 +7,7 @@ import useDocumentTitle from "../hooks/useDocumentTitle";
 import useScrollReveal from "../hooks/useScrollReveal";
 import About from "../sections/About";
 import Contact from "../sections/Contact";
+import Credentials from "../sections/Credentials";
 import Education from "../sections/Education";
 import GitHub from "../sections/GitHub";
 import Hero from "../sections/Hero";
@@ -43,6 +44,7 @@ function Home() {
       <Service />
       <Project />
       <GitHub />
+      <Credentials />
       <Education />
       <Contact />
     </>

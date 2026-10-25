@@ -5,7 +5,7 @@ React. The site uses a small custom design system, data-driven content, project
 case-study pages, dark mode and a keyboard-driven quick navigation palette.
 
 **Live sections:** Hero · About · Skills · Services · Projects · GitHub ·
-Education · Contact
+Achievements & Certifications (when entries exist) · Education · Contact
 
 **Extra pages:** Project case studies (`/projects/:slug`), Resume (`/resume`)
 
@@ -17,6 +17,7 @@ common edit tasks, see [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md).
 - Responsive layout tested from 380px to 1440px
 - Light and dark themes (saved in `localStorage`, respects the OS preference)
 - Project case-study pages with React Router
+- Data-driven achievements and certifications section with credential links
 - Resume page with print styles and a PDF download
 - Command palette (`Ctrl`/`Cmd` + `K`) for jumping to sections, projects and links
 - Live GitHub repositories feed (public GitHub API, cached for 10 minutes)
@@ -60,7 +61,7 @@ src/
   data/           site details, skills, projects, education
   hooks/          useScrollReveal, useTheme, useDocumentTitle
   pages/          Home, ProjectDetail, ResumePage, NotFound
-  sections/       Hero, About, Skills, Service, Projects, GitHub, Education, Contact
+  sections/       Hero, About, Skills, Service, Projects, GitHub, Credentials, Education, Contact
   App.js          Router + app shell
   App.css         Global styles and responsive breakpoints
 public/
@@ -79,6 +80,7 @@ Other content:
 
 - `src/data/skills.js` — skill groups shown in the Skills section and resume
 - `src/data/projects.js` — project cards, filters and case-study content
+- `src/data/credentials.js` — achievements and certifications
 - `src/data/education.js` — education timeline entries
 
 To add a project case study, add an entry to `projects` with a unique `slug`;

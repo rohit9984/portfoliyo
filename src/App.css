@@ -1016,6 +1016,245 @@ section[id] {
   margin-top: 36px;
 }
 
+/* Achievements & Certifications */
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.credential-group {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+}
+
+.credential-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.credential-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.credential-kicker i {
+  font-size: 17px;
+}
+
+.credential-count {
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.cert-list,
+.achievement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cert-card {
+  padding: 18px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.cert-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-hover);
+}
+
+.cert-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cert-icon,
+.achievement-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 20px;
+}
+
+.cert-date {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.cert-card h3 {
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--text-heading);
+}
+
+.cert-issuer {
+  margin-top: 3px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.cert-card .skill-tags {
+  margin-top: 12px;
+}
+
+.cert-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-light);
+}
+
+.cert-footer .text-link {
+  font-size: 13px;
+}
+
+.cert-note {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.credential-id {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: monospace;
+  overflow-wrap: anywhere;
+}
+
+.achievement-card {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.achievement-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-hover);
+}
+
+.achievement-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.achievement-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.achievement-year {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+}
+
+.achievement-link {
+  color: var(--primary);
+  font-size: 17px;
+  line-height: 1;
+}
+
+.achievement-card h3 {
+  margin-top: 3px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text-heading);
+}
+
+.achievement-card p {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.credentials-empty {
+  display: flex;
+  gap: 18px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-lg);
+}
+
+.credentials-empty-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 24px;
+}
+
+.credentials-empty h3 {
+  font-size: 16px;
+  color: var(--text-heading);
+}
+
+.credentials-empty p {
+  margin-top: 4px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.credentials-empty code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 12.5px;
+}
+
 /* Education */
 .timeline {
   position: relative;
@@ -1529,7 +1768,8 @@ a.info-item:hover,
 @media (max-width: 900px) {
   .hero-grid,
   .about-grid,
-  .contact-grid {
+  .contact-grid,
+  .credentials-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1582,6 +1822,15 @@ a.info-item:hover,
 @media (max-width: 640px) {
   .container {
     padding: 0 18px;
+  }
+
+  .credential-group {
+    padding: 18px;
+  }
+
+  .credentials-empty {
+    flex-direction: column;
+    padding: 20px;
   }
 
   .logo-text {
@@ -2392,6 +2641,8 @@ body {
 }
 
 .resume-projects,
+.resume-certifications,
+.resume-achievements,
 .resume-education {
   display: flex;
   flex-direction: column;
@@ -2417,6 +2668,8 @@ body {
 }
 
 .resume-projects p,
+.resume-certifications p,
+.resume-achievements p,
 .resume-education p {
   margin-top: 2px;
   font-size: 12.5px;
