@@ -1,10 +1,12 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import { projectFilters, projects } from "../data/projects";
 import site from "../data/site";
 
 function Project() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const requestedFilter = searchParams.get("filter");
   const activeFilter = projectFilters.some(
     (filter) => filter.id === requestedFilter
@@ -18,11 +20,20 @@ function Project() {
       : projects.filter((project) => project.category === activeFilter);
 
   const selectFilter = (id) => {
-    if (id === "all") {
-      setSearchParams({}, { replace: true });
-    } else {
-      setSearchParams({ filter: id }, { replace: true });
+    const params = new URLSearchParams();
+    if (id !== "all") {
+      params.set("filter", id);
     }
+    const search = params.toString();
+
+    navigate(
+      {
+        pathname: location.pathname,
+        search: search ? `?${search}` : "",
+        hash: location.hash,
+      },
+      { replace: true }
+    );
   };
 
   return (
